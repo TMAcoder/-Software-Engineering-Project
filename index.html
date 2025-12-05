@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ANH CHIEN'S RESTAURANT | Hệ thống quản lý</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <aside class="sidebar">
+      <div class="logo-area">
+        <img src="image_1266de.jpg" alt="IT Logo" class="logo-img" />
+        <div class="brand-text">ANH CHIEN'S<br />RESTAURANT</div>
+      </div>
+      <div class="user-info">
+        <div class="user-avatar">C</div>
+        <div style="display: flex; flex-direction: column">
+          <span style="font-weight: bold; font-size: 0.95rem"
+            >Quản lý Chiến</span
+          >
+          <span style="font-size: 0.8rem; color: #94a3b8">Administrator</span>
+        </div>
+      </div>
+      <ul class="menu-list">
+        <li
+          id="nav-dashboard"
+          class="menu-item active"
+          onclick="switchView('dashboard')"
+        >
+          <i class="fas fa-chart-line"></i> <span>Xem báo cáo doanh thu</span>
+        </li>
+        <li id="nav-menu" class="menu-item" onclick="switchView('menu')">
+          <i class="fas fa-utensils"></i> <span>Quản lý menu</span>
+        </li>
+        <li id="nav-tables" class="menu-item" onclick="switchView('tables')">
+          <i class="fas fa-qrcode"></i> <span>Quản lý bàn & QR</span>
+        </li>
+        <li id="nav-orders" class="menu-item" onclick="switchView('orders')">
+          <i class="fas fa-clipboard-list"></i> <span>Quản lý đơn hàng</span>
+        </li>
+        <li id="nav-staff" class="menu-item" onclick="switchView('staff')">
+          <i class="fas fa-user-tie"></i> <span>Quản lý nhân viên</span>
+        </li>
+      </ul>
+    </aside>
+
+    <main class="main-content">
+      <header class="top-bar">
+        <div id="page-header-title" class="page-title">
+          Tổng quan kinh doanh
+        </div>
+        <div class="top-actions">
+          <a
+            href="https://www.facebook.com/share/16jXK7ZMYq/"
+            target="_blank"
+            class="action-link"
+            ><span>❓</span> Trợ giúp</a
+          >
+          <a
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=trunn1510@gmail.com&su=Góp ý"
+            target="_blank"
+            class="action-link"
+            ><span>💬</span> Góp ý</a
+          >
+
+          <div class="noti-wrapper">
+            <div class="action-link" onclick="toggleNotiDropdown()">
+              <span>🔔</span> Thông báo
+              <span id="noti-badge" class="noti-badge" style="display: none"
+                >0</span
+              >
+            </div>
+            <div id="noti-dropdown" class="noti-dropdown">
+              <div class="noti-header">Thông báo mới</div>
+              <div id="noti-list" class="noti-list">
+                <div style="padding: 15px; text-align: center; color: #999">
+                  Chưa có thông báo nào
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="dashboard-container">
+        <div id="view-dashboard">
+          <div class="section-title">Báo cáo nhanh</div>
+          <div class="stats-grid">
+            <div class="card">
+              <div class="card-header">
+                <span>DOANH THU HÔM NAY</span><i class="fas fa-ellipsis-h"></i>
+              </div>
+              <div class="card-body">
+                <ul class="stat-list">
+                  <li class="stat-item">
+                    <span class="dot bg-blue"></span> Tiền mặt
+                    <span class="amount">5.200k</span>
+                  </li>
+                  <li class="stat-item">
+                    <span class="dot bg-pink"></span> Chuyển khoản
+                    <span class="amount">8.500k</span>
+                  </li>
+                  <li class="stat-item">
+                    <span class="dot bg-purple"></span> Thẻ
+                    <span class="amount">2.100k</span>
+                  </li>
+                </ul>
+                <div id="chart-revenue" class="chart-wrapper"></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <span>TRẠNG THÁI BÀN</span><i class="fas fa-ellipsis-h"></i>
+              </div>
+              <div class="card-body">
+                <ul class="stat-list">
+                  <li class="stat-item">
+                    <span class="dot bg-green"></span> Bàn trống
+                    <span class="amount">12</span>
+                  </li>
+                  <li class="stat-item">
+                    <span class="dot bg-pink"></span> Đang phục vụ (Có khách)
+                    <span class="amount">8</span>
+                  </li>
+                  <li class="stat-item">
+                    <span class="dot bg-blue"></span> Đặt trước
+                    <span class="amount">4</span>
+                  </li>
+                </ul>
+                <div id="chart-table" class="chart-wrapper"></div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <span>NGUỒN ĐƠN HÀNG</span><i class="fas fa-ellipsis-h"></i>
+              </div>
+              <div class="card-body">
+                <ul class="stat-list">
+                  <li class="stat-item">
+                    <span class="dot bg-blue"></span> Tại bàn (QR)
+                    <span class="amount">45</span>
+                  </li>
+                  <li class="stat-item">
+                    <span class="dot bg-pink"></span> Mang về
+                    <span class="amount">12</span>
+                  </li>
+                  <li class="stat-item">
+                    <span class="dot bg-purple"></span> App Giao hàng
+                    <span class="amount">18</span>
+                  </li>
+                </ul>
+                <div id="chart-order" class="chart-wrapper"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="view-menu" style="display: none">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 20px;
+            "
+          >
+            <div class="section-title" style="margin-bottom: 0">
+              Danh sách món ăn
+            </div>
+            <button class="action-btn" onclick="openAddModal()">
+              + Thêm món mới
+            </button>
+          </div>
+          <div id="menu-grid-container" class="menu-grid"></div>
+        </div>
+
+        <div id="view-tables" style="display: none">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 20px;
+            "
+          >
+            <div class="section-title" style="margin-bottom: 0">
+              Sơ đồ bàn ăn
+            </div>
+            <div class="filter-group">
+              <button class="filter-btn active" onclick="filterTables('all')">
+                Tất cả
+              </button>
+              <button class="filter-btn" onclick="filterTables('Tầng 1')">
+                Tầng 1
+              </button>
+              <button class="filter-btn" onclick="filterTables('Tầng 2')">
+                Tầng 2
+              </button>
+              <button class="filter-btn" onclick="filterTables('Sân vườn')">
+                Sân vườn
+              </button>
+            </div>
+          </div>
+          <div id="table-grid-container" class="table-grid"></div>
+        </div>
+
+        <div id="view-orders" style="display: none">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 20px;
+            "
+          >
+            <div class="section-title" style="margin-bottom: 0">
+              Danh sách đơn hàng
+            </div>
+            <div class="filter-group">
+              <button class="filter-btn active" onclick="filterOrders('all')">
+                Tất cả
+              </button>
+              <button class="filter-btn" onclick="filterOrders('pending')">
+                Chờ bếp
+              </button>
+              <button class="filter-btn" onclick="filterOrders('completed')">
+                Hoàn thành
+              </button>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Mã Đơn</th>
+                  <th>Bàn/Khách</th>
+                  <th>Thời gian</th>
+                  <th>Tổng tiền</th>
+                  <th>Trạng thái</th>
+                  <th>Hành động</th>
+                </tr>
+              </thead>
+              <tbody id="order-list-container"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="view-staff" style="display: none">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 20px;
+            "
+          >
+            <div class="section-title" style="margin-bottom: 0">
+              Đội ngũ nhân viên
+            </div>
+
+            <div style="display: flex; gap: 10px">
+              <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input
+                  type="text"
+                  id="staff-search-input"
+                  onkeyup="searchStaff()"
+                  placeholder="Tìm tên nhân viên..."
+                />
+              </div>
+
+              <button class="action-btn" onclick="openStaffModal()">
+                <i class="fas fa-plus"></i> Thêm nhân viên
+              </button>
+            </div>
+          </div>
+          <div id="staff-grid-container" class="staff-grid"></div>
+        </div>
+      </div>
+
+      <div id="dishModal" class="modal">
+        <div class="modal-content">
+          <span class="close-btn" onclick="closeModal('dishModal')"
+            >&times;</span
+          >
+          <div class="modal-left-col">
+            <img id="modal-img" src="" class="modal-dish-img" />
+            <div id="img-input-container" style="display: none; padding: 10px">
+              <label style="font-weight: bold">Tải ảnh:</label>
+              <input
+                type="file"
+                id="edit-img-file"
+                class="edit-input"
+                accept="image/*"
+              />
+              <input
+                type="text"
+                id="edit-img-input"
+                class="edit-input"
+                placeholder="Hoặc dán link..."
+              />
+            </div>
+          </div>
+          <div class="modal-details">
+            <div id="modal-title-container">
+              <h2 id="modal-title" class="modal-title">Tên món</h2>
+            </div>
+            <div id="modal-price-container">
+              <span id="modal-price" class="modal-price">0đ</span>
+            </div>
+            <div class="modal-meta" style="display: flex; align-items: center">
+              <span style="font-weight: bold; margin-right: 10px"
+                >Tình trạng:</span
+              >
+              <span
+                id="modal-status"
+                style="font-weight: bold; margin-right: 15px"
+                >● Còn hàng</span
+              >
+              <button
+                id="btn-toggle-status"
+                onclick="toggleStatus()"
+                class="status-btn"
+              >
+                <i class="fas fa-sync-alt"></i>
+              </button>
+            </div>
+            <div id="modal-desc-container">
+              <p id="modal-desc" class="modal-desc">Mô tả...</p>
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 15px">
+              <button
+                id="edit-btn"
+                onclick="toggleEditMode()"
+                class="action-btn"
+              >
+                <i class="fas fa-edit"></i> <span id="edit-btn-text">Sửa</span>
+              </button>
+              <button
+                id="delete-btn"
+                onclick="deleteDish()"
+                class="action-btn btn-red"
+              >
+                <i class="fas fa-trash"></i> Xóa
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="tableModal" class="modal">
+        <div class="modal-content" style="width: 400px; max-width: 90%">
+          <span class="close-btn" onclick="closeModal('tableModal')"
+            >&times;</span
+          >
+          <div style="padding: 30px; text-align: center">
+            <h2 id="table-title" style="color: var(--text-primary)">
+              Bàn số 01
+            </h2>
+            <p
+              id="table-area"
+              style="color: var(--text-secondary); margin-bottom: 20px"
+            >
+              Khu vực: Tầng 1
+            </p>
+            <div class="qr-container">
+              <img id="table-qr-img" src="" style="width: 150px" />
+            </div>
+            <div style="margin: 20px 0">
+              <strong>Trạng thái: </strong
+              ><span id="table-status-text">Trống</span>
+            </div>
+            <div style="display: flex; gap: 10px; justify-content: center">
+              <button
+                onclick="changeTableStatus('occupied')"
+                class="action-btn"
+                style="background: var(--chart-pink); width: auto"
+              >
+                Có khách
+              </button>
+              <button
+                onclick="changeTableStatus('empty')"
+                class="action-btn"
+                style="background: var(--chart-green); width: auto"
+              >
+                Trả bàn
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="orderModal" class="modal">
+        <div class="modal-content" style="width: 500px; max-width: 95%">
+          <span class="close-btn" onclick="closeModal('orderModal')"
+            >&times;</span
+          >
+          <div style="padding: 25px">
+            <h2
+              style="
+                border-bottom: 2px solid #f1f5f9;
+                padding-bottom: 10px;
+                margin-bottom: 15px;
+              "
+            >
+              Chi tiết đơn
+              <span id="order-id-modal" style="color: var(--sidebar-active)"
+                >#</span
+              >
+            </h2>
+            <div id="order-items-list" style="margin-bottom: 20px"></div>
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                font-size: 1.2rem;
+                font-weight: bold;
+                margin-bottom: 20px;
+              "
+            >
+              <span>Tổng cộng:</span>
+              <span id="order-total-modal" style="color: var(--status-red)"
+                >0đ</span
+              >
+            </div>
+            <button
+              onclick="completeOrder()"
+              class="action-btn"
+              style="
+                width: 100%;
+                justify-content: center;
+                background: var(--chart-green);
+              "
+            >
+              Hoàn thành đơn
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="staffModal" class="modal">
+        <div class="modal-content" style="width: 450px; max-width: 90%">
+          <span class="close-btn" onclick="closeModal('staffModal')"
+            >&times;</span
+          >
+          <div style="padding: 25px">
+            <h2
+              id="staff-modal-title"
+              style="text-align: center; margin-bottom: 20px"
+            >
+              Thêm nhân viên mới
+            </h2>
+
+            <div style="text-align: center; margin-bottom: 15px">
+              <img
+                id="staff-preview-img"
+                src="https://via.placeholder.com/100"
+                style="
+                  width: 80px;
+                  height: 80px;
+                  border-radius: 50%;
+                  object-fit: cover;
+                  border: 2px solid #eee;
+                "
+              />
+            </div>
+
+            <div class="form-group">
+              <label>Họ và tên:</label>
+              <input
+                type="text"
+                id="staff-name-input"
+                class="edit-input"
+                placeholder="Ví dụ: Nguyễn Văn A"
+              />
+            </div>
+
+            <div class="form-group">
+              <label>Chức vụ:</label>
+              <select id="staff-role-input" class="edit-input">
+                <option value="Quản lý">Quản lý</option>
+                <option value="Thu ngân">Thu ngân</option>
+                <option value="Đầu bếp">Đầu bếp</option>
+                <option value="Phục vụ">Phục vụ</option>
+                <option value="Bảo vệ">Bảo vệ</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Trạng thái:</label>
+              <select id="staff-status-input" class="edit-input">
+                <option value="online">🟢 Đang làm việc</option>
+                <option value="offline">⚪ Nghỉ ca / Offline</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Link ảnh (Avatar):</label>
+              <input
+                type="text"
+                id="staff-img-input"
+                class="edit-input"
+                placeholder="https://..."
+                onchange="document.getElementById('staff-preview-img').src = this.value"
+              />
+            </div>
+
+            <button
+              onclick="saveStaff()"
+              class="action-btn"
+              style="width: 100%; margin-top: 25px; justify-content: center"
+            >
+              <i class="fas fa-save"></i> Lưu thông tin
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="chart-tooltip" class="chart-tooltip"></div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

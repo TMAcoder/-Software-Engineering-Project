@@ -1,0 +1,1177 @@
+/* =========================================
+   1. CẤU HÌNH MÀU SẮC & CƠ BẢN
+   ========================================= */
+:root {
+  --sidebar-bg: #1e293b; /* Xanh đen (Sidebar) */
+  --sidebar-text: #94a3b8; /* Xám nhạt (Text mờ) */
+  --sidebar-active: #0ea5e9; /* Xanh dương sáng (Active/Highlight) */
+  --bg-color: #f1f5f9; /* Xám nền chung */
+  --card-bg: #ffffff; /* Trắng nền Card */
+  --text-primary: #334155; /* Đen xám (Tiêu đề) */
+  --text-secondary: #64748b; /* Xám (Mô tả) */
+
+  /* Bảng màu trạng thái & Biểu đồ */
+  --chart-blue: #3b82f6;
+  --chart-pink: #ec4899;
+  --chart-purple: #8b5cf6;
+  --chart-green: #10b981;
+  --chart-gray: #cbd5e1;
+  --status-red: #ef4444; /* Màu đỏ (Hết hàng/Xóa) */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: var(--bg-color);
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* =========================================
+   2. SIDEBAR (THANH BÊN TRÁI)
+   ========================================= */
+.sidebar {
+  width: 260px;
+  background-color: var(--sidebar-bg);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  transition: width 0.3s;
+}
+
+.logo-area {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  gap: 12px;
+}
+
+.logo-img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  background: white;
+  border-radius: 4px;
+  padding: 2px;
+}
+
+.brand-text {
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: var(--sidebar-active);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1.3;
+}
+
+.user-info {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.user-avatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: var(--chart-blue);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  object-fit: cover;
+}
+
+.menu-list {
+  list-style: none;
+  padding: 15px 0;
+  overflow-y: auto;
+}
+
+.menu-item {
+  padding: 14px 20px;
+  color: var(--sidebar-text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: all 0.2s;
+  font-size: 0.95rem;
+  border-left: 3px solid transparent;
+}
+
+.menu-item i {
+  width: 25px;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.menu-item:hover,
+.menu-item.active {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: white;
+  border-left: 3px solid var(--sidebar-active);
+}
+
+.menu-item.active i {
+  color: var(--sidebar-active);
+}
+
+/* =========================================
+   3. MAIN CONTENT (KHUNG CHÍNH)
+   ========================================= */
+.main-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  position: relative;
+}
+
+.top-bar {
+  height: 70px;
+  background-color: var(--card-bg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+  flex-shrink: 0;
+}
+
+.page-title {
+  font-weight: bold;
+  font-size: 1.3rem;
+  color: var(--text-primary);
+}
+
+.top-actions {
+  display: flex;
+  gap: 25px;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  align-items: center;
+}
+
+.action-link {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.2s;
+  cursor: pointer;
+}
+
+.action-link:hover {
+  color: var(--chart-blue);
+}
+
+.dashboard-container {
+  padding: 30px;
+}
+
+/* =========================================
+   4. THÔNG BÁO (NOTIFICATIONS)
+   ========================================= */
+.noti-wrapper {
+  position: relative;
+  cursor: pointer;
+}
+
+.noti-badge {
+  position: absolute;
+  top: -5px;
+  left: 12px;
+  background-color: var(--status-red);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 10px;
+  border: 2px solid white;
+  animation: popIn 0.3s;
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.noti-dropdown {
+  display: none;
+  position: absolute;
+  top: 40px;
+  right: 0;
+  width: 320px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+}
+
+.noti-header {
+  padding: 12px 15px;
+  background: #f8fafc;
+  font-weight: bold;
+  border-bottom: 1px solid #e2e8f0;
+  color: var(--text-primary);
+}
+
+.noti-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.noti-item {
+  padding: 12px 15px;
+  border-bottom: 1px solid #f1f5f9;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  align-items: start;
+  gap: 10px;
+}
+
+.noti-item:hover {
+  background-color: #f8fafc;
+}
+.noti-item.unread {
+  background-color: #eff6ff;
+}
+.noti-item.unread:hover {
+  background-color: #dbeafe;
+}
+
+.noti-icon {
+  font-size: 1.2rem;
+}
+.noti-content {
+  flex: 1;
+}
+.noti-title {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+.noti-time {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.unread-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--sidebar-active);
+  border-radius: 50%;
+  margin-top: 5px;
+}
+
+/* =========================================
+   5. DASHBOARD & STATS
+   ========================================= */
+.section-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  padding-left: 10px;
+  border-left: 4px solid var(--sidebar-active);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+.card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.card-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.stat-list {
+  list-style: none;
+  width: 40%;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.amount {
+  margin-left: auto;
+  font-weight: 600;
+}
+
+/* SVG Chart & Tooltip */
+.chart-wrapper {
+  width: 220px;
+  height: 180px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chart-segment {
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+  transform-origin: center;
+  stroke: #fff;
+  stroke-width: 2px;
+}
+
+.chart-segment:hover {
+  opacity: 1;
+  transform: scale(1.1);
+  filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+  z-index: 10;
+}
+
+.chart-line {
+  stroke: #334155;
+  stroke-width: 1.5px;
+  fill: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.chart-text-bg {
+  fill: rgba(255, 255, 255, 0.9);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.chart-text {
+  font-size: 11px;
+  font-weight: bold;
+  fill: #334155;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  text-anchor: middle;
+}
+
+.chart-group:hover .chart-line,
+.chart-group:hover .chart-text,
+.chart-group:hover .chart-text-bg {
+  opacity: 1;
+}
+.chart-group:hover .chart-segment {
+  transform: scale(1.1);
+}
+
+.center-label {
+  position: absolute;
+  font-weight: 800;
+  font-size: 1rem;
+  color: var(--text-primary);
+  pointer-events: none;
+  z-index: 0;
+  text-align: center;
+}
+
+.chart-tooltip {
+  position: absolute;
+  display: none;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  pointer-events: none;
+  z-index: 1000;
+  white-space: nowrap;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* =========================================
+   6. QUẢN LÝ MENU (MÓN ĂN)
+   ========================================= */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 25px;
+}
+
+.menu-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  border: 1px solid transparent;
+  position: relative;
+}
+
+.menu-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  border-color: var(--sidebar-active);
+}
+
+.menu-img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  background-color: #eee;
+}
+
+.menu-info {
+  padding: 15px;
+  text-align: center;
+}
+.menu-info h4 {
+  font-size: 1rem;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.price-tag {
+  font-weight: bold;
+  color: var(--chart-blue);
+  font-size: 1.1rem;
+}
+
+/* =========================================
+   7. QUẢN LÝ BÀN (TABLES)
+   ========================================= */
+.filter-group {
+  display: flex;
+  gap: 10px;
+  background: white;
+  padding: 5px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+.filter-btn {
+  padding: 6px 12px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 6px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: 0.2s;
+}
+.filter-btn:hover {
+  background: #f1f5f9;
+}
+.filter-btn.active {
+  background: var(--sidebar-active);
+  color: white;
+}
+
+.table-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 20px;
+}
+.table-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: all 0.3s;
+  border: 2px solid transparent;
+  position: relative;
+}
+.table-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.table-icon {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: #cbd5e1;
+}
+.table-name {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+}
+.table-info {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-top: 5px;
+}
+
+/* Trạng thái Bàn */
+.table-card.empty .table-icon {
+  color: var(--chart-green);
+}
+.table-card.empty {
+  border-color: var(--chart-green);
+}
+
+.table-card.occupied .table-icon {
+  color: var(--chart-pink);
+}
+.table-card.occupied {
+  border-color: var(--chart-pink);
+  background-color: #fff1f2;
+}
+.table-card.occupied::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 12px;
+  box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.7);
+  animation: pulse-red 2s infinite;
+}
+
+.table-card.reserved .table-icon {
+  color: var(--chart-blue);
+}
+.table-card.reserved {
+  border-color: var(--chart-blue);
+  background-color: #eff6ff;
+}
+
+@keyframes pulse-red {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(236, 72, 153, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(236, 72, 153, 0);
+  }
+}
+
+/* =========================================
+   8. MODAL (POPUP) & FORM EDIT
+   ========================================= */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-content {
+  background-color: #fff;
+  /* CĂN GIỮA TUYỆT ĐỐI */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 65%; /* Chiều rộng mặc định */
+  max-width: 900px;
+  max-height: 90vh; /* Không vượt quá chiều cao màn hình */
+  overflow-y: auto; /* Cuộn nếu dài */
+
+  border-radius: 15px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+  display: flex;
+  animation: fadeIn 0.3s;
+}
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.3);
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 35px;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 10;
+  transition: 0.2s;
+}
+.close-btn:hover {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+/* Layout trong Modal */
+.modal-left-col {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  background: #f8fafc;
+}
+.modal-dish-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  flex-grow: 1;
+  min-height: 300px;
+}
+.modal-details {
+  width: 50%;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.modal-title {
+  font-size: 1.8rem;
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+.modal-price {
+  font-size: 1.5rem;
+  color: var(--chart-pink);
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.modal-desc {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+.modal-meta {
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+}
+
+/* Buttons & Inputs */
+.action-btn {
+  padding: 12px 25px;
+  background: var(--sidebar-active);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: 0.2s;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+}
+.action-btn:hover {
+  background: #0284c7;
+  transform: translateY(-2px);
+}
+
+.status-btn {
+  padding: 4px 10px;
+  margin-left: 10px;
+  background: #e2e8f0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: 0.2s;
+}
+.status-btn:hover {
+  background: #cbd5e1;
+}
+
+.btn-red {
+  background: var(--status-red);
+  margin-left: 10px;
+}
+.btn-red:hover {
+  background: #dc2626;
+}
+
+.edit-input {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: inherit;
+  margin-top: 5px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.edit-input:focus {
+  border-color: var(--sidebar-active);
+}
+
+.edit-textarea {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: inherit;
+  min-height: 100px;
+  outline: none;
+  resize: vertical;
+  margin-top: 5px;
+}
+.edit-textarea:focus {
+  border-color: var(--sidebar-active);
+}
+
+/* Helper classes */
+.text-green {
+  color: var(--chart-green) !important;
+}
+.text-red {
+  color: var(--status-red) !important;
+}
+.bg-blue {
+  background: var(--chart-blue);
+}
+.bg-pink {
+  background: var(--chart-pink);
+}
+.bg-purple {
+  background: var(--chart-purple);
+}
+.bg-green {
+  background: var(--chart-green);
+}
+.bg-gray {
+  background: var(--chart-gray);
+}
+
+/* =========================================
+   9. RESPONSIVE (MOBILE)
+   ========================================= */
+@media (max-width: 900px) {
+  /* Modal trên mobile sẽ xếp dọc */
+  .modal-content {
+    width: 90%;
+    flex-direction: column;
+    height: auto;
+    max-height: 80vh; /* Giới hạn chiều cao */
+  }
+  .modal-left-col,
+  .modal-details {
+    width: 100%;
+  }
+  .modal-dish-img {
+    height: 200px;
+    min-height: auto;
+  }
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 70px;
+  }
+  .logo-area .brand-text,
+  .user-info span,
+  .menu-item span {
+    display: none;
+  }
+  .logo-img {
+    margin: 0 auto;
+  }
+  .menu-item {
+    justify-content: center;
+    padding: 20px 0;
+  }
+  .logo-area,
+  .user-info {
+    padding: 10px 5px;
+    justify-content: center;
+  }
+}
+/* --- ORDER MANAGEMENT STYLES --- */
+
+/* Khung bảng có thanh cuộn ngang nếu màn hình nhỏ */
+.table-responsive {
+  overflow-x: auto;
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+}
+
+/* Thiết kế bảng */
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px; /* Đảm bảo không bị co quá nhỏ */
+}
+
+.custom-table th {
+  text-align: left;
+  padding: 15px;
+  background: #f8fafc;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.custom-table td {
+  padding: 15px;
+  border-bottom: 1px solid #f1f5f9;
+  color: var(--text-primary);
+  vertical-align: middle;
+  font-size: 0.95rem;
+}
+
+/* Hiệu ứng hover hàng */
+.custom-table tr:hover {
+  background-color: #f1f5f9;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+/* Badge trạng thái */
+.badge {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.badge-pending {
+  background: #fff7ed; /* Cam nhạt */
+  color: #f97316; /* Cam đậm */
+  border: 1px solid #ffedd5;
+}
+
+.badge-completed {
+  background: #ecfdf5; /* Xanh lá nhạt */
+  color: #10b981; /* Xanh lá đậm */
+  border: 1px solid #d1fae5;
+}
+
+/* Style cho danh sách món trong Modal Đơn hàng */
+.order-item-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  border-bottom: 1px dashed #e2e8f0;
+  padding-bottom: 8px;
+}
+.order-item-row:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+/* --- STAFF MANAGER STYLES (NÂNG CẤP) --- */
+
+/* Thanh tìm kiếm */
+.search-box {
+  display: flex;
+  align-items: center;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 0 10px;
+  width: 250px;
+}
+.search-box i {
+  color: var(--text-secondary);
+}
+.search-box input {
+  border: none;
+  outline: none;
+  padding: 8px;
+  width: 100%;
+  font-size: 0.9rem;
+}
+
+/* Staff Card */
+.staff-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.staff-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid transparent;
+  overflow: hidden;
+}
+
+.staff-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  border-color: var(--sidebar-active);
+}
+
+/* Background trang trí trên đầu card */
+.staff-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: linear-gradient(45deg, var(--sidebar-bg), var(--sidebar-active));
+  z-index: 0;
+}
+
+.staff-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 10px;
+  border: 4px solid white;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.staff-info {
+  position: relative;
+  z-index: 1;
+}
+.staff-name {
+  font-weight: bold;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+.staff-role {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  background: #f1f5f9;
+  padding: 4px 10px;
+  border-radius: 15px;
+  display: inline-block;
+  font-weight: 600;
+}
+
+/* Trạng thái chấm tròn */
+.staff-status-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+.dot-online {
+  background-color: var(--chart-green);
+  box-shadow: 0 0 5px var(--chart-green);
+}
+.dot-offline {
+  background-color: #cbd5e1;
+}
+
+/* Các nút hành động trên Card */
+.staff-actions {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  opacity: 0; /* Ẩn mặc định */
+  transform: translateY(10px);
+  transition: all 0.3s;
+}
+
+.staff-card:hover .staff-actions {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.icon-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+  color: white;
+}
+.btn-edit {
+  background: var(--chart-blue);
+}
+.btn-edit:hover {
+  background: #2563eb;
+}
+.btn-delete {
+  background: var(--status-red);
+}
+.btn-delete:hover {
+  background: #dc2626;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+.form-group label {
+  font-size: 0.9rem;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+}
+/* --- BIỂU ĐỒ (CHARTS) --- */
+.chart-wrapper {
+  width: 100%;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+/* Hiệu ứng hover vào từng phần tử biểu đồ */
+.chart-segment {
+  transform-origin: center;
+  transition: transform 0.3s ease, opacity 0.3s;
+  cursor: pointer;
+}
+.chart-segment:hover {
+  transform: scale(1.1);
+  opacity: 0.9;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+}
+
+/* Chữ số ở giữa biểu đồ */
+.center-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  pointer-events: none;
+}
+
+/* Đường kẻ và chú thích khi hover */
+.chart-line {
+  stroke: #64748b;
+  stroke-width: 1;
+  fill: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.chart-text-bg {
+  fill: rgba(255, 255, 255, 0.95);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+.chart-text {
+  font-size: 11px;
+  font-weight: bold;
+  fill: #334155;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  text-anchor: middle;
+}
+
+/* Hiện chú thích khi hover vào nhóm */
+.chart-group:hover .chart-line,
+.chart-group:hover .chart-text,
+.chart-group:hover .chart-text-bg {
+  opacity: 1;
+}
+
+/* Tooltip đi theo chuột */
+.chart-tooltip {
+  position: fixed;
+  display: none;
+  background: rgba(30, 41, 59, 0.9);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  pointer-events: none;
+  z-index: 9999;
+  white-space: nowrap;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
