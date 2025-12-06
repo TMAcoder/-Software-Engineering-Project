@@ -17,7 +17,7 @@ let menuData = {
   "lau-thai": {
     title: "Lẩu Thái Hải Sản",
     price: "250.000đ",
-    img: "https://images.unsplash.com/photo-1546241072-48010ad2862c?q=80&w=800&auto=format&fit=crop",
+    img: "https://cdn2.fptshop.com.vn/unsafe/Uploads/images/tin-tuc/173437/Originals/cach-nau-lau-thai-hai-san-chua-cay-5.jpg",
     desc: "Nồi lẩu chua cay chuẩn vị Thái với tôm sú, mực ống, nghêu.",
     isAvailable: true,
   },
