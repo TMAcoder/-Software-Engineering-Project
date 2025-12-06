@@ -84,7 +84,7 @@ body {
 .user-avatar {
   width: 45px;
   height: 45px;
-  border-radius: 25%;
+  border-radius: 50%;
   background-color: var(--chart-blue);
   color: white;
   display: flex;
@@ -1176,143 +1176,116 @@ body {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 /* =========================================
-   RESPONSIVE (ĐIỀU CHỈNH TỰ ĐỘNG CO DÃN)
+   RESPONSIVE (ĐIỀU CHỈNH CHO ĐIỆN THOẠI)
    ========================================= */
 
-/* 1. Dành cho Laptop nhỏ & Tablet (Chiều rộng < 1024px) */
+/* Khi màn hình nhỏ hơn 1024px (Laptop nhỏ / Tablet ngang) */
 @media (max-width: 1024px) {
   .sidebar {
     width: 70px;
-  }
-  .brand-text,
-  .user-info span,
+  } /* Thu nhỏ thanh bên */
+  .brand-text {
+    display: none;
+  } /* Ẩn tên quán */
+  .user-info span {
+    display: none;
+  } /* Ẩn tên quản lý */
   .menu-item span {
     display: none;
-  } /* Ẩn chữ, chỉ hiện icon */
+  } /* Ẩn chữ menu, chỉ hiện icon */
   .menu-item {
     justify-content: center;
     padding: 20px 0;
-  }
+  } /* Căn giữa icon */
   .logo-img {
     margin: 0 auto;
   }
-
-  /* Tự động điều chỉnh lưới thống kê: Tối thiểu 250px một thẻ */
-  .stats-grid {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  }
 }
 
-/* 2. Dành cho Điện thoại (Chiều rộng < 768px) */
+/* Khi màn hình nhỏ hơn 768px (Điện thoại) */
 @media (max-width: 768px) {
-  /* Sidebar thu gọn thành thanh điều hướng nhỏ hoặc icon */
+  /* 1. Sidebar biến thành thanh menu nhỏ dưới đáy hoặc icon nhỏ bên trái */
   .sidebar {
     width: 60px;
-    z-index: 1000; /* Đảm bảo luôn nổi lên trên */
+    z-index: 100;
   }
 
   .logo-area {
-    padding: 0 5px;
+    padding: 0 10px;
   }
 
-  /* Nội dung chính mở rộng ra */
+  /* 2. Nội dung chính tràn ra để tận dụng không gian */
   .dashboard-container {
     padding: 15px;
-  }
+  } /* Giảm lề */
+
   .top-bar {
     padding: 0 15px;
   }
   .page-title {
     font-size: 1.1rem;
+  } /* Giảm cỡ chữ tiêu đề */
+
+  /* 3. Các thẻ thống kê xếp dọc thành 1 cột */
+  .stats-grid {
+    grid-template-columns: 1fr; /* 1 cột duy nhất */
   }
 
-  /* Nút trên thanh top bar: Ẩn chữ, chỉ hiện icon để tiết kiệm chỗ */
-  .top-actions span {
-    display: none;
-  }
-  .top-actions a span,
-  .top-actions div span {
-    display: inline;
-  } /* Giữ lại icon */
-  .action-link {
-    gap: 2px;
-  }
-
-  /* Bộ lọc: Tự động xuống dòng nếu hết chỗ */
-  .filter-group {
-    flex-wrap: wrap;
-    gap: 5px;
-  }
-  .filter-btn {
-    font-size: 0.8rem;
-    padding: 5px 10px;
-  }
-
-  /* Lưới Menu: Tự động co dãn, 2 cột trên mobile, 1 cột trên máy rất nhỏ */
-  .menu-grid {
-    /* Công thức tự động: Nếu màn hình đủ rộng thì 2 cột, hẹp quá thì 1 cột */
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 10px;
-  }
-
-  .menu-img {
-    height: 110px;
-  }
-  .menu-info {
-    padding: 8px;
-  }
-  .menu-info h4 {
-    font-size: 0.85rem;
-  }
-  .price-tag {
-    font-size: 0.95rem;
-  }
-
-  /* Bảng đơn hàng: Ẩn các cột không quan trọng */
-  .custom-table th:nth-child(3), .custom-table td:nth-child(3), /* Ẩn Thời gian */
-    .custom-table th:nth-child(1), .custom-table td:nth-child(1)  /* Ẩn Mã đơn */ {
-    display: none;
-  }
-  .custom-table th,
-  .custom-table td {
-    padding: 10px 5px;
-    font-size: 0.8rem;
-  }
-
-  /* MODAL: Full màn hình trên điện thoại */
+  /* 4. Modal (Hộp thoại) full màn hình trên điện thoại */
   .modal-content {
-    width: 95% !important;
+    width: 95%;
     max-width: none;
+    flex-direction: column; /* Xếp ảnh lên trên, chữ xuống dưới */
     height: auto;
-    max-height: 90vh; /* Chiều cao tối đa 90% màn hình */
-    flex-direction: column; /* Xếp dọc: Ảnh trên, chữ dưới */
-    top: 50%;
-    transform: translate(-50%, -50%);
+    max-height: 85vh; /* Giới hạn chiều cao */
   }
 
   .modal-left-col {
     width: 100%;
-    height: 180px;
-  } /* Ảnh nhỏ lại */
-  .modal-dish-img {
-    min-height: auto;
-    height: 100%;
+    height: 200px; /* Ảnh nhỏ lại */
   }
+
   .modal-details {
     width: 100%;
-    padding: 15px;
+    padding: 20px;
+  }
+
+  /* 5. Ẩn bớt các nút không cần thiết trên bảng đơn hàng */
+  .custom-table th:nth-child(3), /* Ẩn cột Thời gian */
+    .custom-table td:nth-child(3) {
+    display: none;
+  }
+
+  /* 6. Chỉnh lại nút bộ lọc cho đỡ tràn */
+  .filter-group {
+    flex-wrap: wrap; /* Cho phép xuống dòng nếu nút quá dài */
+  }
+
+  .top-actions span {
+    display: none; /* Ẩn chữ 'Trợ giúp', 'Góp ý' chỉ hiện icon */
+  }
+
+  /* 7. Menu món ăn: 2 cột trên điện thoại (thay vì 1 cột quá to) */
+  .menu-grid {
+    grid-template-columns: repeat(2, 1fr); /* Ép buộc 2 cột */
+    gap: 10px;
+  }
+
+  .menu-img {
+    height: 120px;
+  } /* Ảnh món nhỏ lại */
+  .menu-info {
+    padding: 10px;
+  }
+  .menu-info h4 {
+    font-size: 0.9rem;
   }
 }
 
-/* 3. Dành cho Điện thoại rất nhỏ (Chiều rộng < 400px) */
+/* Khi màn hình siêu nhỏ (Điện thoại cũ < 400px) */
 @media (max-width: 400px) {
   .menu-grid {
-    /* Chuyển về 1 cột nếu màn hình quá bé để tránh vỡ giao diện */
-    grid-template-columns: 1fr;
-  }
-
-  .stats-grid {
-    grid-template-columns: 1fr; /* 1 cột thống kê */
+    grid-template-columns: 1fr; /* Về lại 1 cột cho dễ nhìn */
   }
 }
 /* --- STAFF EXPAND (HIỆU ỨNG KÉO XUỐNG) --- */
@@ -1397,25 +1370,4 @@ body {
 /* Đảm bảo nút xóa/sửa luôn nổi lên trên */
 .staff-actions {
   z-index: 5;
-}
-/* --- SỬA LỖI ẢNH MENU KHÔNG ĐỀU --- */
-.menu-img {
-  width: 100%; /* Ảnh luôn rộng bằng thẻ chứa nó */
-  height: 160px; /* Đặt CHIỀU CAO CỐ ĐỊNH cho tất cả ảnh */
-  object-fit: cover; /* QUAN TRỌNG: Cắt ảnh để lấp đầy khung mà không bị méo */
-  border-radius: 10px 10px 0 0; /* Bo tròn 2 góc trên cho đẹp (khớp với thẻ card) */
-}
-
-/* Đảm bảo các thẻ card cũng có chiều cao đồng nhất */
-.menu-card {
-  display: flex;
-  flex-direction: column;
-  height: 100%; /* Chiếm toàn bộ chiều cao của ô lưới */
-}
-
-.menu-info {
-  flex-grow: 1; /* Phần thông tin sẽ giãn ra để lấp đầy khoảng trống còn lại */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; /* Căn tên món lên trên, giá tiền xuống dưới cùng */
 }

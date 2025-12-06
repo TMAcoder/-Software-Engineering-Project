@@ -8,20 +8,25 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
   </head>
   <body>
     <aside class="sidebar">
       <div class="logo-area">
-        <img src="image_1266de.jpg" alt="IT Logo" class="logo-img" />
+        <img
+          src="{{ url_for('static', filename='image_1266de.jpg') }}"
+          alt="IT Logo"
+          class="logo-img"
+        />
         <div class="brand-text">ANH CHIEN'S<br />RESTAURANT</div>
       </div>
       <div class="user-info">
         <div class="user-avatar">C</div>
         <div style="display: flex; flex-direction: column">
-          <span style="font-weight: bold; font-size: 0.95rem"
-            >Quản lý</span
-          >
+          <span style="font-weight: bold; font-size: 0.95rem">Quản lý</span>
           <span style="font-size: 0.8rem; color: #94a3b8">Administrator</span>
         </div>
       </div>
@@ -46,6 +51,24 @@
           <i class="fas fa-user-tie"></i> <span>Quản lý nhân viên</span>
         </li>
       </ul>
+      <li
+        class="menu-item"
+        style="margin-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.1)"
+      >
+        <a
+          href="/logout"
+          style="
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+          "
+        >
+          <i class="fas fa-sign-out-alt"></i> <span>Đăng xuất</span>
+        </a>
+      </li>
     </aside>
 
     <main class="main-content">
@@ -603,6 +626,6 @@
       <div id="chart-tooltip" class="chart-tooltip"></div>
     </main>
 
-    <script src="script.js"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
   </body>
 </html>
